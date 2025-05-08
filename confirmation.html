@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation | Grand Horizon Hotel</title>
+    <link rel="stylesheet" href="project.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Grand Horizon</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rooms.html">Rooms & Suites</a></li>
+                    <li><a href="booking.html">Book Now</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="confirmation">
+        <div class="container">
+            <div class="confirmation-card">
+                <h1>Thank You for Your Booking!</h1>
+                <div class="confirmation-details" id="confirmationDetails">
+                    <!-- Details will be filled by JavaScript -->
+                </div>
+                <p>We've sent a confirmation email with your booking details. If you have any questions, please contact our reservations team.</p>
+                <a href="index.html" class="btn">Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>123 Luxury Avenue, City</p>
+                    <p>Phone: 9432789912</p>
+                    <p>Email: kp7800893@gmail.com</p>
+                </div>  
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="booking.html">Book Now</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Grand Horizon Hotel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="project.js"></script>
+    <script>
+        // Display booking details from sessionStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookingDetails = JSON.parse(sessionStorage.getItem('bookingDetails'));
+            const confirmationDiv = document.getElementById('confirmationDetails');
+            
+            if (bookingDetails) {
+                let html = `
+                    <p><strong>Reservation Number:</strong> GH-${Math.floor(Math.random() * 1000000)}</p>
+                    <p><strong>Room Type:</strong> ${bookingDetails.roomType}</p>
+                    <p><strong>Check-In:</strong> ${bookingDetails.checkIn}</p>
+                    <p><strong>Check-Out:</strong> ${bookingDetails.checkOut}</p>
+                    <p><strong>Guests:</strong> ${bookingDetails.adults} adults, ${bookingDetails.children} children</p>
+                    <p><strong>Guest Name:</strong> ${bookingDetails.fullName}</p>
+                    <p><strong>Contact Email:</strong> ${bookingDetails.email}</p>
+                `;
+                
+                if (bookingDetails.specialRequests) {
+                    html += <p><strong>Special Requests:</strong> ${bookingDetails.specialRequests}</p>;
+                }
+                
+                confirmationDiv.innerHTML = html;
+            } else {
+                confirmationDiv.innerHTML = '<p>No booking details found. Please complete the booking form.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
